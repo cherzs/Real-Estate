@@ -1,0 +1,25 @@
+.o_list_button{
+    font-size: 12px; /* Adjust font size as needed */
+}
+.oe_kanban_global_click {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.oe_kanban_header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.oe_kanban_state .badge {
+    font-size: 12px;
+}
+
+.oe_kanban_footer {
+    margin-top: 10px;
+    text-align: right;
+}
