@@ -2,13 +2,25 @@
 <odoo>
     <data>
         <!-- Root Menu -->
-        <menuitem id="menu_estate_root" name="Real Estate" sequence="1"/>
+        <menuitem 
+            id="menu_estate_root" 
+            name="Real Estate" 
+            sequence="1"/>
 
         <!-- First Level Menu -->
-        <menuitem id="menu_estate_properties" name="Properties" parent="menu_estate_root" sequence="2"/>
+        <menuitem 
+            id="menu_estate_properties" 
+            name="Properties" 
+            parent="menu_estate_root" 
+            sequence="2"/>
 
         <!-- Second Level Menu -->
-        <menuitem id="menu_estate_property_actions" name="Manage Properties" parent="menu_estate_properties" action="estate_property_action" sequence="3"/>
+        <menuitem 
+            id="menu_estate_property_actions" 
+            name="Manage Properties" 
+            parent="menu_estate_properties" 
+            action="estate_property_action" 
+            sequence="3"/>
         <!-- Menu Items -->
          
         

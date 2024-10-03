@@ -1,6 +1,7 @@
-from odoo import models, fields, api
+from asyncio import exceptions
+from odoo import models, fields, api # type: ignore
 from datetime import datetime, timedelta
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError # type: ignore
 
 class EstateProperty(models.Model):
     _name = 'estate.property'
@@ -49,6 +50,7 @@ class EstateProperty(models.Model):
 
     # New computed field
     tag_names = fields.Char(string="Tag Names", compute="_compute_tag_names", store=True)
+    image = fields.Binary(string='Image', attachment=True)
 
     @api.depends('tag_ids.name')
     def _compute_tag_names(self):
@@ -108,5 +110,22 @@ class EstateProperty(models.Model):
             if any(offer_amount < offer.offer_amount for offer in record.offer_ids):
                 raise exceptions.UserError("The offer amount cannot be lower than existing offers.")
             record.state = 'offer_received'
-
     
+ 
+    @api.model
+    def action_create(self):
+        """Create a new property or reset the current property."""
+        for record in self:
+            # Logic to create or reset a property
+            record.write({
+                'state': 'new',
+                # Add more fields to reset or initialize if necessary
+            })
+
+    @api.model
+    def action_archive(self):
+        """Archive the property."""
+        for record in self:
+            record.write({
+                'state': 'archived',
+            })

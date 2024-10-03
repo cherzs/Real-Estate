@@ -113,60 +113,36 @@
             </tree>
         </field>
     </record>
+    <!-- Kanban View -->
     <record id="view_estate_property_kanban" model="ir.ui.view">
         <field name="name">estate.property.kanban</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <kanban 
-                default_order="date_availability desc"
-                create="true"
-                edit="true"
-                delete="true"
-                group_create="true"
-                group_delete="true"
-                group_edit="true"
-                groups_draggable="true"
-                records_draggable="true"
-                archivable="true"
-                quick_create="true"
-                on_create="quick_create"
-                sample="false">
-                
-                <!-- Define fields to be used in templates -->
-                <field name="name"/>
-                <field name="state"/>
-                <field name="date_availability"/>
-                
-                <!-- Define header with buttons -->
-                <header>
-                    <button name="action_create" type="object" string="Create New" display="always"/>
-                    <button name="action_archive" type="object" string="Archive" display="always"/>
-                </header>
-
-                <!-- Define progress bar -->
-                <progressbar field="state"
-                             colors="{'new': 'success', 'sold': 'warning', 'cancelled': 'danger'}"
-                             sum_field="amount"/>
-
-                <!-- Define templates -->
+            <kanban>
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="o_kanban_record">
-                            <div class="o_kanban_record_body">
-                                <field name="name"/>
-                                <field name="state"/>
-                                <field name="date_availability"/>
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_image">
+                                <img t-att-src="kanban_image" class="img img-responsive"/>
                             </div>
-                            <div class="o_kanban_record_footer">
-                                <button name="action_sold" type="object" string="Mark as Sold"/>
-                                <button name="action_cancel" type="object" string="Cancel"/>
+                            <div class="oe_kanban_details">
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                                <div>
+                                    <field name="state" widget='statusbar' statusbar_visible="draft,sold,canceled"/>
+                                </div>
+                                <div>
+                                    <field name="expected_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                </div>
                             </div>
                         </div>
                     </t>
                 </templates>
-            </kanban>        
+            </kanban>
         </field>
     </record>
+    
     <!-- Search View -->
     <record id="view_estate_property_search" model="ir.ui.view">
         <field name="name">estate.property.search</field>
@@ -205,10 +181,21 @@
         </field>
     </record>
 
+    <menuitem 
+        id="estate_property_menu" 
+        name="Estate Properties" 
+        sequence="10"/>
+    <!-- <menuitem 
+        id="estate_property_kanban_menu" 
+        name="Properties Kanban" 
+        parent="estate_property_menu" 
+        action="action_estate_property_kanban"/> -->
+    
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="view_id" ref="view_estate_property_kanban"/>
     </record>
+    
 </odoo>
